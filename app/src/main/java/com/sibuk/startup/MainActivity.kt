@@ -17,7 +17,7 @@ import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.ArrayList
+import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,15 +26,30 @@ class MainActivity : AppCompatActivity() {
     private val IMAGE_PICK_CODE: Int = 1002
     var ImgId : Int = 0
     var image_uri: Uri? = null
-    val list1: MutableList<Int> = ArrayList()
+    val listX: MutableList<Int> = ArrayList()
+    val listR: MutableList<Int> = ArrayList()
+    val listG: MutableList<Int> = ArrayList()
+    val listB: MutableList<Int> = ArrayList()
+    val lst: MutableList<Int> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        btn.setOnClickListener(){
 
+            Log.i("Button", "Calculating result...");
+            calc()
 
+            for(i in lst) {
+                Log.i("lstkey","i : $i")
+            }
 
+            var i = Intent(this@MainActivity, Main2Activity::class.java)
+            i.putExtra("Result",lst.toIntArray())
+            println("size of the array is "+lst.toIntArray().size)
+            startActivity(i)
+        }
 
     }
 
@@ -144,31 +159,33 @@ class MainActivity : AppCompatActivity() {
         if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
             ImgView.setImageURI(data?.data)
         }
+        getRcb()
     }
 
     fun list1add(Id : Int){
         when(Id){
-            img1.id -> list1 += 1
-            img2.id -> list1 += 2
-            img3.id -> list1 += 3
-            img4.id -> list1 += 4
-            img5.id -> list1 += 5
-            img6.id -> list1 += 6
-            img7.id -> list1 += 7
-            img8.id -> list1 += 8
+            img1.id -> listX += 1
+            img2.id -> listX += 2
+            img3.id -> listX += 3
+            img4.id -> listX += 4
+            img5.id -> listX += 5
+            img6.id -> listX += 6
+            img7.id -> listX += 7
+            img8.id -> listX += 8
         }
-
     }
 
-    fun getRcb(view :View) {
+
+
+    fun getRcb() {
 
         // val bitmap = BitmapFactory.decodeFile(image1)
         //Setting up converted bitmap image inside imageview.
         // image1.setImageBitmap(bitmap)
         //BitmapDrawable drawable = (BitmapDrawable) imageView.getDrawable()
-        var Id : Int = 0
-        for (i in list1){
-            when(i){
+        var Id: Int = 0
+        for (i in listX) {
+            when (i) {
                 1 -> Id = img1.id
                 2 -> Id = img2.id
                 3 -> Id = img3.id
@@ -179,9 +196,8 @@ class MainActivity : AppCompatActivity() {
                 8 -> Id = img8.id
             }
             val ImgView = findViewById<ImageView>(Id)
-            var bitmap = (ImgView.getDrawable() as BitmapDrawable).getBitmap()
+            val bitmap = (ImgView.getDrawable() as BitmapDrawable).getBitmap()
             ImgView.setImageBitmap(bitmap)
-
 
             val width = bitmap.getWidth()
             val height = bitmap.getHeight()
@@ -192,48 +208,134 @@ class MainActivity : AppCompatActivity() {
             val colour = bitmap.getPixel(centerX, centerY)
 
             val red = Color.red(colour)
-            val blue = Color.blue(colour)
             val green = Color.green(colour)
-            val alpha = Color.alpha(colour)
-            when(i){
-                1 -> text1.text = " R: "+ red
-                2 -> text1.text = " R: "+ red
-                3 -> text1.text = " R: "+ red
-                4 -> text1.text = " R: "+ red
-                5 ->text1.text = " R: "+ red
-                6 -> text1.text = " R: "+ red
-                7 -> text1.text = " R: "+ red
-                8 -> text1.text = " R: "+ red
+            val blue = Color.blue(colour)
+            if( colour == Color.RED){
+                Log.i("color","It is red")
             }
-
+            Log.i("color", "R:$red")
+            Log.i("color", "G:$green")
+            Log.i("color", "B:$blue")
+            when (i) {
+                1 -> text1.text = "R:$red, G:$green, B:$blue"
+                2 -> text2.text = "R:$red, G:$green, B:$blue"
+                3 -> text3.text = "R:$red, G:$green, B:$blue"
+                4 -> text4.text = "R:$red, G:$green, B:$blue"
+                5 -> text5.text = "R:$red, G:$green, B:$blue"
+                6 -> text6.text = "R:$red, G:$green, B:$blue"
+                7 -> text7.text = "R:$red, G:$green, B:$blue"
+                8 -> text8.text = "R:$red, G:$green, B:$blue"
+            }
+            listR += red
+            listG += green
+            listB += blue
         }
-        val ImgView = findViewById<ImageView>(Id)
-        var bitmap = (ImgView.getDrawable() as BitmapDrawable).getBitmap()
-        ImgView.setImageBitmap(bitmap)
+    }
 
+    fun lstadd(lst1 : MutableList<Int>){
+        for (i in lst1){
+            lst.add(i)
+        }
+    }
 
-        val width = bitmap.getWidth()
-        val height = bitmap.getHeight()
+    fun calc(){
 
-        val centerX = width / 2
-        val centerY = height / 2
+        val arR :IntArray = listR.toIntArray()
+        val arG :IntArray = listG.toIntArray()
+        val arB :IntArray = listB.toIntArray()
+        val arX :IntArray = listX.toIntArray()
 
-        val colour = bitmap.getPixel(centerX, centerY)
+        val lstR: MutableList<Int> = calculate(arX,arR)
+        lstadd(lstR)
 
-        val red = Color.red(colour)
-        val blue = Color.blue(colour)
-        val green = Color.green(colour)
-        val alpha = Color.alpha(colour)
+        val lstG: MutableList<Int> = calculate(arX,arG)
+        lstadd(lstG)
 
-        Log.i("color", " " + red)
+        val lstB: MutableList<Int> = calculate(arX,arB)
+        lstadd(lstB)
+    }
 
+    fun calculate(arr1:IntArray, arr2 : IntArray): MutableList<Int>{
+//        var arr1: IntArray = intArrayOf(1, 2, 3, 4, 5)
+//        var arr2: IntArray = intArrayOf(651, 762, 856, 1063, 1190)
+        val llist : MutableList<Int> = ArrayList()
+        val xbar = arr1.average().toInt()
+        val ybar = arr2.average().toInt()
+        var arr3: IntArray = delC(arr1,xbar)
+        var arr6 = delC(arr2,ybar)
+        val arr4: IntArray = proArr(arr3,arr6)
+        val sum1 : Int = arr4.sum()
+        arr3 = sqrArr(arr3)
+        val sum2 = arr3.sum()
+        val m = (sum1.toFloat()/sum2.toFloat()).toInt()
+        val c = ybar - m * xbar
 
-        Toast.makeText(
-            getApplicationContext(), " " + red + " " + blue + " " + green + " " + alpha,
-            Toast.LENGTH_SHORT
-        ).show()
+        val size = arr1.count()
+        var arr5 = IntArray(size)
+        for (i in 0..size - 1) {
+            arr5[i] = c + m * arr1[i]
+        }
+        arr5 = delC(arr5,ybar)
+        arr5 = sqrArr(arr5)
+        arr6 = sqrArr(arr6)
+        val sum3 = arr5.sum()
+        val sum4 = arr6.sum()
+        val acc = ((sum3.toFloat() / sum4.toFloat())*100).toInt()
+        println("sum1 : "+sum1)
+        println("sum2 : "+sum2)
+        println("sum3 : "+sum3)
+        println("sum4 :"+sum4)
+        println("m = "+ m)
+        println("c = "+c)
+        println("Accuracy = "+acc)
+        val y = m * 6 + c
+        println("y : "+y)
+        println("y9 : "+((m*9)+c))
+        println("y8 : "+((m*8)+c))
+        println("y7 : "+((m*7)+c))
+        println("y6 : "+((m*6)+c))
+        println("y3 : "+((m*3)+c))
+        println("y1 : "+((m*1)+c))
 
+        llist.add(m)
+        llist.add(c)
+        llist.add(acc)
+        return llist
 
     }
 
+    fun delC(Arr1: IntArray, c:Int):IntArray{
+        val size = Arr1.count()
+        val sum = IntArray(size)
+        for (i in 0..size - 1) {
+            sum[i] = Arr1[i] - c
+        }
+        return sum
+    }
+    fun proArr(Arr1:IntArray, Arr2:IntArray):IntArray{
+        val size = Arr1.count()
+        val pro = IntArray(size)
+        for (i in 0..size - 1) {
+            pro[i] = Arr1[i] * Arr2[i]
+        }
+        return pro
+
+    }
+//    fun sumArr(Arr1:IntArray, Arr2:IntArray):IntArray{
+//        val size = Arr1.count()
+//        val sum = IntArray(size)
+//        for (i in 0..size - 1) {
+//            sum[i] = Arr1[i] + Arr2[i]
+//        }
+//        return sum
+
+
+    fun sqrArr(Arr1:IntArray):IntArray{
+        val size = Arr1.count()
+        val sum = IntArray(size)
+        for (i in 0..size - 1) {
+            sum[i] = Arr1[i] * Arr1[i]
+        }
+        return sum
+    }
 }
