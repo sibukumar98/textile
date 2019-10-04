@@ -39,10 +39,11 @@ class MainActivity : AppCompatActivity() {
         btn.setOnClickListener(){
 
             Log.i("Button", "Calculating result...");
+            getRcb()
             calc()
 
             for(i in lst) {
-                Log.i("lstkey","i : $i")
+                Log.i("btn","lst : $i")
             }
 
             var i = Intent(this@MainActivity, Main2Activity::class.java)
@@ -159,7 +160,7 @@ class MainActivity : AppCompatActivity() {
         if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
             ImgView.setImageURI(data?.data)
         }
-        getRcb()
+
     }
 
     fun list1add(Id : Int){
@@ -173,6 +174,7 @@ class MainActivity : AppCompatActivity() {
             img7.id -> listX += 7
             img8.id -> listX += 8
         }
+
     }
 
 
@@ -184,7 +186,26 @@ class MainActivity : AppCompatActivity() {
         // image1.setImageBitmap(bitmap)
         //BitmapDrawable drawable = (BitmapDrawable) imageView.getDrawable()
         var Id: Int = 0
+        for (i in listX)
+            Log.i("listX","listX:$i")
+
         for (i in listX) {
+//            if (i==1)
+//                Id = img1.id
+//            if (i==2)
+//                Id = img2.id
+//            if (i==3)
+//                Id = img3.id
+//            if (i==4)
+//                Id = img4.id
+//            if (i==5)
+//                Id = img5.id
+//            if (i==6)
+//                Id = img6.id
+//            if (i==7)
+//                Id = img7.id
+//            if (i==8)
+//                Id = img8.id
             when (i) {
                 1 -> Id = img1.id
                 2 -> Id = img2.id
@@ -210,26 +231,72 @@ class MainActivity : AppCompatActivity() {
             val red = Color.red(colour)
             val green = Color.green(colour)
             val blue = Color.blue(colour)
-            if( colour == Color.RED){
-                Log.i("color","It is red")
-            }
+//            if( colour == Color.RED){
+//                Log.i("color","It is red")
+//            }
             Log.i("color", "R:$red")
             Log.i("color", "G:$green")
             Log.i("color", "B:$blue")
-            when (i) {
-                1 -> text1.text = "R:$red, G:$green, B:$blue"
-                2 -> text2.text = "R:$red, G:$green, B:$blue"
-                3 -> text3.text = "R:$red, G:$green, B:$blue"
-                4 -> text4.text = "R:$red, G:$green, B:$blue"
-                5 -> text5.text = "R:$red, G:$green, B:$blue"
-                6 -> text6.text = "R:$red, G:$green, B:$blue"
-                7 -> text7.text = "R:$red, G:$green, B:$blue"
-                8 -> text8.text = "R:$red, G:$green, B:$blue"
+
+//            if (i==1)
+//            { text1.text = "R:$red, G:$green, B:$blue"
+//                coloradd(red,green,blue)}
+//            if (i==2)
+//            {text2.text = "R:$red, G:$green, B:$blue"
+//                coloradd(red,green,blue)}
+//            if (i==3)
+//            {text3.text = "R:$red, G:$green, B:$blue"
+//                coloradd(red,green,blue)}
+//            if (i==4)
+//            {text4.text = "R:$red, G:$green, B:$blue"
+//                coloradd(red,green,blue)}
+//            if (i==5)
+//            {text5.text = "R:$red, G:$green, B:$blue"
+//                coloradd(red,green,blue)}
+//            if (i==6)
+//            {text6.text = "R:$red, G:$green, B:$blue"
+//                coloradd(red,green,blue)}
+//            if (i==7)
+//            {text7.text = "R:$red, G:$green, B:$blue"
+//                coloradd(red,green,blue)}
+//            if (i==8)
+//            {text8.text = "R:$red, G:$green, B:$blue"
+//                coloradd(red,green,blue)}
+            when (i ) {
+                1 -> { text1.text = "R:$red, G:$green, B:$blue"
+                        coloradd(red,green,blue)}
+                2 -> {text2.text = "R:$red, G:$green, B:$blue"
+                    coloradd(red,green,blue)}
+                3 -> {text3.text = "R:$red, G:$green, B:$blue"
+                    coloradd(red,green,blue)}
+                4 -> {text4.text = "R:$red, G:$green, B:$blue"
+                    coloradd(red,green,blue)}
+                5 -> {text5.text = "R:$red, G:$green, B:$blue"
+                    coloradd(red,green,blue)}
+                6 -> {text6.text = "R:$red, G:$green, B:$blue"
+                    coloradd(red,green,blue)}
+                7 -> {text7.text = "R:$red, G:$green, B:$blue"
+                    coloradd(red,green,blue)}
+                8 -> {text8.text = "R:$red, G:$green, B:$blue"
+                    coloradd(red,green,blue)}
             }
-            listR += red
-            listG += green
-            listB += blue
+
+
         }
+    }
+
+    fun coloradd(red:Int,green:Int,blue:Int)
+    {
+        //listR.clear()
+        listR.add(red)
+        //listR += red
+        //Log.i("colorpick","listR:$red")
+        //listG.clear()
+        listG += green
+        //Log.i("colorpick","listG:$green")
+        //listB.clear()
+        listB += blue
+        //Log.i("colorpick","listB:$blue")
     }
 
     fun lstadd(lst1 : MutableList<Int>){
@@ -244,15 +311,35 @@ class MainActivity : AppCompatActivity() {
         val arG :IntArray = listG.toIntArray()
         val arB :IntArray = listB.toIntArray()
         val arX :IntArray = listX.toIntArray()
+        val w = listX.count()
+        Log.i("colorpick","listXcount:$w")
+        for (i in listR)
+            Log.i("colorpick","listR:$i")
+        val x = listR.count()
+        Log.i("colorpick","listRcount:$x")
+        for (i in listG)
+            Log.i("colorpick","listG:$i")
+        val y = listG.count()
+        Log.i("colorpick","listGcount:$y")
+        for (i in listB)
+            Log.i("colorpick","listB:$i")
+        val z = listB.count()
+        Log.i("colorpick","listBcount:$z")
 
         val lstR: MutableList<Int> = calculate(arX,arR)
         lstadd(lstR)
+        for (i in lstR)
+            Log.i("calc","lstR:$i")
 
         val lstG: MutableList<Int> = calculate(arX,arG)
         lstadd(lstG)
+        for (i in lstG)
+            Log.i("calc","lstG:$i")
 
         val lstB: MutableList<Int> = calculate(arX,arB)
         lstadd(lstB)
+        for (i in lstB)
+            Log.i("calc","lstB:$i")
     }
 
     fun calculate(arr1:IntArray, arr2 : IntArray): MutableList<Int>{
@@ -267,38 +354,47 @@ class MainActivity : AppCompatActivity() {
         val sum1 : Int = arr4.sum()
         arr3 = sqrArr(arr3)
         val sum2 = arr3.sum()
-        val m = (sum1.toFloat()/sum2.toFloat()).toInt()
+        val m = (sum1.toFloat()/sum2.toFloat())
         val c = ybar - m * xbar
 
         val size = arr1.count()
-        var arr5 = IntArray(size)
+        var arr5 = FloatArray(size)
         for (i in 0..size - 1) {
-            arr5[i] = c + m * arr1[i]
+            arr5[i] = c + m * arr1[i].toFloat()
         }
-        arr5 = delC(arr5,ybar)
-        arr5 = sqrArr(arr5)
+        arr5 = delCF(arr5,ybar.toFloat())
+        arr5 = sqrArrF(arr5)
         arr6 = sqrArr(arr6)
         val sum3 = arr5.sum()
         val sum4 = arr6.sum()
-        val acc = ((sum3.toFloat() / sum4.toFloat())*100).toInt()
-        println("sum1 : "+sum1)
-        println("sum2 : "+sum2)
-        println("sum3 : "+sum3)
-        println("sum4 :"+sum4)
-        println("m = "+ m)
-        println("c = "+c)
-        println("Accuracy = "+acc)
-        val y = m * 6 + c
-        println("y : "+y)
-        println("y9 : "+((m*9)+c))
-        println("y8 : "+((m*8)+c))
-        println("y7 : "+((m*7)+c))
-        println("y6 : "+((m*6)+c))
-        println("y3 : "+((m*3)+c))
-        println("y1 : "+((m*1)+c))
+        val acc = ((sum3 / sum4.toFloat())*100).toInt()
+        Log.i("calculate","xbar:$xbar")
+        Log.i("calculate","ybar:$ybar")
+        Log.i("calculate","sum1:$sum1")
+        Log.i("calculate","sum2:$sum2")
+        Log.i("calculate","sum3:$sum3")
+        Log.i("calculate","sum4:$sum4")
+        Log.i("calculate","m:$m")
+        Log.i("calculate","c:$c")
+        Log.i("calculate","acc:$acc")
+//        println("sum1 : "+sum1)
+//        println("sum2 : "+sum2)
+//        println("sum3 : "+sum3)
+//        println("sum4 :"+sum4)
+//        println("m = "+ m)
+//        println("c = "+c)
+//        println("Accuracy = "+acc)
+//        val y = m * 6 + c
+//        println("y : "+y)
+//        println("y9 : "+((m*9)+c))
+//        println("y8 : "+((m*8)+c))
+//        println("y7 : "+((m*7)+c))
+//        println("y6 : "+((m*6)+c))
+//        println("y3 : "+((m*3)+c))
+//        println("y1 : "+((m*1)+c))
 
-        llist.add(m)
-        llist.add(c)
+        llist.add(m.toInt())
+        llist.add(c.toInt())
         llist.add(acc)
         return llist
 
@@ -307,6 +403,14 @@ class MainActivity : AppCompatActivity() {
     fun delC(Arr1: IntArray, c:Int):IntArray{
         val size = Arr1.count()
         val sum = IntArray(size)
+        for (i in 0..size - 1) {
+            sum[i] = Arr1[i] - c
+        }
+        return sum
+    }
+    fun delCF(Arr1: FloatArray, c:Float):FloatArray{
+        val size = Arr1.count()
+        val sum = FloatArray(size)
         for (i in 0..size - 1) {
             sum[i] = Arr1[i] - c
         }
@@ -333,6 +437,14 @@ class MainActivity : AppCompatActivity() {
     fun sqrArr(Arr1:IntArray):IntArray{
         val size = Arr1.count()
         val sum = IntArray(size)
+        for (i in 0..size - 1) {
+            sum[i] = Arr1[i] * Arr1[i]
+        }
+        return sum
+    }
+    fun sqrArrF(Arr1:FloatArray):FloatArray{
+        val size = Arr1.count()
+        val sum = FloatArray(size)
         for (i in 0..size - 1) {
             sum[i] = Arr1[i] * Arr1[i]
         }
